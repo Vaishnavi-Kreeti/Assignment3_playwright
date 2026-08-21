@@ -6,6 +6,7 @@ test.beforeEach(async ({ page }) => {
     const url=page.url();
     console.log(url)
     await expect(page).toHaveTitle("TTACart - Login");
+    
 });
 //check login and logout using correct ceredentials
 test("title and login test",async function ({page}){
