@@ -1,5 +1,7 @@
+import { LoginPage } from '../pages/LoginPage';
 const {test,expect}=require('@playwright/test')
 const base_url="https://app.thetestingacademy.com/playwright/ttacart/?utm_source=chatgpt.com"
+const{loginpage}=new LoginPage(page);
 
 test.beforeEach(async ({ page }) => {
     await page.goto(base_url)
@@ -8,7 +10,7 @@ test.beforeEach(async ({ page }) => {
 });
 //check login and logout using correct ceredentials
 test("title and login test",async function ({page}){
-    await page.getByPlaceholder("Username").type("standard_user")
+    await loginpage.username.type("standard_user")
     await page.locator("#password").type("tta_secret")
     await page.locator("#login-button").click()
     await expect(page).toHaveURL(/inventory/)
