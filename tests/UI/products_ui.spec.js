@@ -41,9 +41,8 @@ test("products ui",async function ({page}){
     await expect(page.getByRole('button', { name: 'Remove' })).toHaveText("Remove")
     await page.getByRole('button', { name: 'Back' }).click()
     await expect(page).toHaveURL(/inventory/)
-    // await productpage.addtocart_button.click()
-    // await expect(page.locator('[data-test="remove-tta-junior-tester-onesie"]')).toHaveText("Remove")
+    //remove button count==cart item
     const count=await page.getByRole('button', { name: 'Remove' }).count()
-     console.log(count)
+    console.log(count)
     await expect(await page.locator(".cart-badge")).toHaveCount(count)
 })
