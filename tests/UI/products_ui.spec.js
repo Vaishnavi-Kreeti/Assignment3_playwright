@@ -37,6 +37,8 @@ test("products ui",async function ({page}){
     await productpage.name.click()
     await expect(page).toHaveURL(/tta-junior-tester-onesie/)
     await expect(page.getByRole("heading", "Product Details")).toBeVisible()
+    await page.getByRole('button', { name: 'Add to cart' }).click()
+    await expect(page.getByRole('button', { name: 'Remove' })).toHaveText("Remove")
 
     
 })
