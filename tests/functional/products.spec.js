@@ -30,9 +30,6 @@ const products = Object.values(require("../../pages/Products"))
     await loginPage.login("standard_user", "tta_secret")
 
     for (const expectedProduct of products) {
-
-       
-
         const product = productPage.getProduct(expectedProduct.name)
 
         await expect(product).toBeVisible()
