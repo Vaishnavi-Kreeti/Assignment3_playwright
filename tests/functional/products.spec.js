@@ -15,13 +15,15 @@ test("verify product sorting dropdown", async ({ page }) => {
 
     await expect(dropdown).toBeVisible()
     await expect(dropdown).toBeEnabled()
-
+    const sort_options = [
+  { option: "Price (low to high)", value: "lohi" },
+  { option: "Price (high to low)", value: "hilo" },
+  { option: "Name (A to Z)", value: "az" },
+  { option: "Name (Z to A)", value: "za" }
+];
     // Select option
-    await dropdown.selectOption({
-        label: "Price (low to high)"
-    })
-
-    // Verify selected option
-    await expect(dropdown)
-        .toHaveValue("lohi")
+     for (const item of sort_options) {
+    await dropdown.selectOption({ label: item.option });
+    await expect(dropdown).toHaveValue(item.value);
+  }
 })
