@@ -1,5 +1,8 @@
+const products = require("../../pages/Products")
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
+import { ProductsPage } from '../../pages/ProductsPage';
+
 const {test,expect}=require('@playwright/test')
 const base_url="https://app.thetestingacademy.com/playwright/ttacart/?utm_source=chatgpt.com"
 test('Test multi-select dropdown', async ({ page }) => {
@@ -19,30 +22,31 @@ test('Test multi-select dropdown', async ({ page }) => {
 
 test("verify all products", async ({ page }) => {
 
-    const products = page.locator(".product-card")
+    const loginPage = new LoginPage(page)
+    const productPage = new ProductsPage(page)
+const products = Object.values(require("../../pages/Products"))
+    await page.goto(base_url)
 
-    const count = await products.count()
+    await loginPage.login("standard_user", "tta_secret")
 
-    for (let i = 0; i < count; i++) {
+    for (const expectedProduct of products) {
 
-        const product = products.nth(i)
+       
 
-        // Product should be visible
+        const product = productPage.getProduct(expectedProduct.name)
+
         await expect(product).toBeVisible()
 
-        // Product name should be visible
         await expect(
-            product.locator(".product-name")
-        ).toBeVisible()
+            productPage.getProductName(expectedProduct.name)
+        ).toHaveText(expectedProduct.name)
 
-        // Price should be visible
         await expect(
-            product.locator(".product-price")
-        ).toBeVisible()
+            productPage.getProductPrice(expectedProduct.name)
+        ).toHaveText(expectedProduct.price)
 
-        // Add to cart should be visible
         await expect(
-            product.getByRole("button", { name: /add to cart/i })
+            productPage.getAddToCartButton(expectedProduct.name)
         ).toBeVisible()
     }
 })

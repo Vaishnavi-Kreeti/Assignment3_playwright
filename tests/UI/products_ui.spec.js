@@ -39,6 +39,11 @@ test("products ui",async function ({page}){
     await expect(page.getByRole("heading", "Product Details")).toBeVisible()
     await page.getByRole('button', { name: 'Add to cart' }).click()
     await expect(page.getByRole('button', { name: 'Remove' })).toHaveText("Remove")
-
-    
+    await page.getByRole('button', { name: 'Back' }).click()
+    await expect(page).toHaveURL(/inventory/)
+    // await productpage.addtocart_button.click()
+    // await expect(page.locator('[data-test="remove-tta-junior-tester-onesie"]')).toHaveText("Remove")
+    // const count=await page.getByRole('button', { name: 'Remove' }).count()
+    // console.log(count)
+    // await expect(await page.locator(".cart-badge")).toHaveCount(count)
 })

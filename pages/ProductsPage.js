@@ -6,7 +6,7 @@ class ProductsPage {
         this.name=page.getByRole('link', { name: 'TTA Junior Tester Onesie' })
         this.img=page.getByRole('link').filter({ hasText: 'test.all()' })
         this.price=page.getByRole('link').filter({ hasText: 'test.all()' })
-        this.addtocart_button=page.locator('button').filter({ hasText: 'Add to cart' }).first()
+        this.addtocart_button=page.locator("button[data-test='add-to-cart-tta-junior-tester-onesie']")
     }
      
 
