@@ -4,11 +4,11 @@ import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 
 const {test,expect}=require('@playwright/test')
-const base_url="https://app.thetestingacademy.com/playwright/ttacart/?utm_source=chatgpt.com"
+
 test('Test multi-select dropdown', async ({ page }) => {
-    await page.goto(base_url);
     const loginpage=new LoginPage(page);
     const basepage=new BasePage(page)
+    await page.goto(basepage.url);
     await loginpage.login("standard_user", "tta_secret")
 
     // const multiDropdown = page.locator('[data-test="product-sort-container"]')
@@ -23,9 +23,10 @@ test('Test multi-select dropdown', async ({ page }) => {
 test("verify all products", async ({ page }) => {
 
     const loginPage = new LoginPage(page)
+    const basepage=new BasePage(page)
     const productPage = new ProductsPage(page)
 const products = Object.values(require("../../pages/Products"))
-    await page.goto(base_url)
+    await page.goto(basepage.url)
 
     await loginPage.login("standard_user", "tta_secret")
 

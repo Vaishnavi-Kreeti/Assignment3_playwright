@@ -2,10 +2,10 @@ import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 const {test,expect}=require('@playwright/test')
-const base_url="https://app.thetestingacademy.com/playwright/ttacart/?utm_source=chatgpt.com"
 
 test.beforeEach(async ({ page }) => {
-    await page.goto(base_url)
+     const basepage=new BasePage(page);
+    await page.goto(basepage.url)
     await expect(page).toHaveTitle("TTACart - Login");
     
 });

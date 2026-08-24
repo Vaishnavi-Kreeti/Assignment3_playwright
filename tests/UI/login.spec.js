@@ -1,12 +1,13 @@
 import { LoginPage } from '../../pages/LoginPage';
+import { BasePage } from '../../pages/BasePage';
 const {test,expect}=require('@playwright/test')
-const base_url="https://app.thetestingacademy.com/playwright/ttacart/?utm_source=chatgpt.com"
+
 
 test("login ui",async function ({page}){
-    await page.goto(base_url)
+    const basepage=new BasePage(page);
     const loginpage=new LoginPage(page);
+    await page.goto(basepage.url)
   
-
     await expect(page.locator(".tta-brand-title")).toHaveText("TTACart")
 
     await expect(loginpage.button).toBeVisible()
