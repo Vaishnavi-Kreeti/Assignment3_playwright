@@ -33,6 +33,10 @@ test("products ui",async function ({page}){
     await expect(productpage.price).toBeVisible()
     await expect(productpage.addtocart_button).toBeVisible()
     await expect(productpage.addtocart_button).toBeEnabled()
+    // product_des 
+    await productpage.name.click()
+    await expect(page).toHaveURL(/tta-junior-tester-onesie/)
+    await expect(page.getByRole("heading", "Product Details")).toBeVisible()
 
     
 })
