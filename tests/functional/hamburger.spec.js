@@ -15,7 +15,7 @@ test("hamburger",async function ({page}){
     await loginpage.login("standard_user", "tta_secret")
     await expect(page).toHaveURL(/inventory/)
    //opening hamburger flyout
-   await expect(hamburger.flyout).toBeVisible()
+   await expect(hamburger.flyout).not.toHaveClass(/is-open/)
     await basepage.hamburger.click()
     await expect(hamburger.flyout).toBeVisible()
     
