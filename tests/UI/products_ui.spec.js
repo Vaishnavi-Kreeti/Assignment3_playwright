@@ -33,7 +33,7 @@ test("products ui",async function ({page}){
     await expect(productpage.price).toBeVisible()
     await expect(productpage.addtocart_button).toBeVisible()
     await expect(productpage.addtocart_button).toBeEnabled()
-    // product_des 
+    // product_des_page
     await productpage.name.click()
     await expect(page).toHaveURL(/tta-junior-tester-onesie/)
     await expect(page.getByRole("heading", "Product Details")).toBeVisible()
@@ -42,7 +42,10 @@ test("products ui",async function ({page}){
     await page.getByRole('button', { name: 'Back' }).click()
     await expect(page).toHaveURL(/inventory/)
     //remove button count==cart item
+    const randnum = Math.floor(Math.random() * 5) + 1;
+    for (let i=1;i<=randnum;i++){
+        await page.getByRole('button',{name:'Add to cart'}).first().click()
+    }
     const count=await page.getByRole('button', { name: 'Remove' }).count()
-    console.log(count)
-    await expect(await page.locator(".cart-badge")).toHaveCount(count)
+    await expect(await page.locator(".cart-badge")).toHaveText(String(count))
 })

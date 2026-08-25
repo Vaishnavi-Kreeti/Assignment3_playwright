@@ -13,6 +13,8 @@ test("cart test",async function ({page}){
     await page.goto(basepage.url)
     await loginpage.login("standard_user", "tta_secret")
     await expect(page).toHaveURL(/inventory/)
+    await page.getByRole('button',{name:'Add to cart'}).first().click()
+    await page.getByRole('button',{name:'Add to cart'}).first().click()
     await basepage.cart.click()
     //cart_ui
     await expect(cart.heading).toBeVisible()
@@ -26,6 +28,9 @@ test("cart test",async function ({page}){
     await expect(await page.getByRole('link', { name: 'Cancel' })).toBeEnabled()
     await page.getByRole('link', { name: 'Cancel' }).click()
     await expect(page).toHaveURL(/cart/)
+
+    const count=await page.getByRole('button', { name: 'Remove' }).count()
+    await expect(await page.locator(".cart-badge")).toHaveText(String(count))
 
 
 })
