@@ -20,6 +20,14 @@ test("cart test",async function ({page}){
     //cart_ui
     await expect(cart.heading).toBeVisible()
     await expect(cart.heading).toHaveText("Your Cart")
+    if(cart.remove_btn.count()===0){
+        await expect(await page.getByText('Your cart is empty.', { exact: true })).toBeVisible()
+        await expect(await page.getByText('Your cart is empty.', { exact: true })).toHaveText('Your cart is empty')
+    }
+    else{
+        await expect(await page.getByText('Your cart is empty.', { exact: true })).toBeHidden()
+    }
+
     //checkout button test
     await expect(cart.checkout_btn).toBeEnabled()
     await expect(cart.checkout_btn).toBeVisible()
@@ -30,8 +38,10 @@ test("cart test",async function ({page}){
     await page.getByRole('link', { name: 'Cancel' }).click()
     await expect(page).toHaveURL(/cart/)
     //remove button count==cart item
-    const count=await page.getByRole('button', { name: 'Remove' }).count()
+    const count=await cart.remove_btn.count()
     await expect(basepage.cart_count).toHaveText(String(count))
 
+    await cart.remove_btn.first().click()
+    await expect(await cart.remove_btn.count()<count).toBeTruthy()
 
 })
