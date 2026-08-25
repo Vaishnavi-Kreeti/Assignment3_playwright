@@ -1,6 +1,7 @@
 import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
+import {Cart} from '../../pages/Cart';
 const {test,expect}=require('@playwright/test')
 
 test.beforeEach(async ({ page }) => {
@@ -14,16 +15,17 @@ test("products ui",async function ({page}){
     const loginpage=new LoginPage(page);
     const basepage=new BasePage(page);
     const productpage=new ProductsPage(page);
+    const cartpage=new Cart(page);
     //login
     await loginpage.login("standard_user", "tta_secret")
     await expect(page).toHaveURL(/inventory/)
     await expect(page).toHaveTitle("TTACart - Products");
-    await expect(page.locator(".page-title")).toHaveText("Products")
+    await expect(productpage.title).toHaveText("Products")
     //cart button
     await expect(basepage.cart).toBeEnabled()
     await basepage.cart.click()
     await expect(page).toHaveTitle("TTACart - Your Cart")
-    await page.locator(".btn-continue").click()
+    await cartpage.continue_btn.click()
     await expect(page).toHaveURL(/inventory/)
     //product card
     await expect(productpage.card).toBeVisible()
@@ -44,8 +46,8 @@ test("products ui",async function ({page}){
     //remove button count==cart item
     const randnum = Math.floor(Math.random() * 5) + 1;
     for (let i=1;i<=randnum;i++){
-        await page.getByRole('button',{name:'Add to cart'}).first().click()
+        await productpage.addtocart_button.click()
     }
     const count=await page.getByRole('button', { name: 'Remove' }).count()
-    await expect(await page.locator(".cart-badge")).toHaveText(String(count))
+    await expect(basepage.cart_count).toHaveText(String(count))
 })
