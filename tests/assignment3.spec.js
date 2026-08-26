@@ -24,7 +24,7 @@ test("title and login test",async function ({page}){
 /*check login using incorrect username*/
 test("title and login test 2",async function ({page}){
     await loginpage.login("problem", "tta_secret")
-     const error_mess=await loginpage.loginError.textContent()
+    const error_mess=await loginpage.loginError.textContent()
     await expect(error_mess===("Epic sadface: Username and password do not match any user in this service")).toBeTruthy()
     
     
