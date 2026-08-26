@@ -2,6 +2,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 import { Cart } from '../../pages/Cart';
+import { Checkout_1 } from '../../pages/Checkout_1';
 const { test, expect } = require('@playwright/test');
 
 test.describe("Cart Tests", () => {
@@ -9,11 +10,12 @@ test.describe("Cart Tests", () => {
     let basepage;
     let productpage;
     let cart;
-
+    let check_1;
     test.beforeEach(async ({ page }) => {
         loginpage = new LoginPage(page);
         basepage = new BasePage(page);
         productpage = new ProductsPage(page);
+        check_1=new Checkout_1(page);
         cart = new Cart(page);
         await page.goto(basepage.url);
         await loginpage.login("standard_user", "tta_secret");
@@ -48,9 +50,9 @@ test.describe("Cart Tests", () => {
     test("verify cancel checkout", async ({ page }) => {
         await cart.checkout_btn.click();
         await expect(page).toHaveURL(/checkout-step-one/);
-        const cancelButton = page.getByRole("link",{ name: "Cancel" });
-        await expect(cancelButton).toBeEnabled();
-        await cancelButton.click();
+        //const cancelButton = page.getByRole("link",{ name: "Cancel" });
+        await expect(check_1.cancel_btn).toBeEnabled();
+        await check_1.cancel_btn.click();
         await expect(page).toHaveURL(/cart/);
     });
     test("verify cart item count", async ({ page }) => {

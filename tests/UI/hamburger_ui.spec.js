@@ -46,4 +46,8 @@ test.describe("Hamburger UI Tests", () => {
         await expect(hamburger.reset).toBeEnabled();
         await expect(hamburger.reset).toHaveText("Reset App State");
     });
+    test("verify Cross button", async ({ page }) => {
+        await expect(hamburger.close_btn).toBeVisible();
+        await expect(hamburger.close_btn).toBeEnabled();
+    });
 });

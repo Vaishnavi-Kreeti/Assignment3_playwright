@@ -2,6 +2,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 import { Cart } from '../../pages/Cart';
+import { Product_Des } from '../../pages/Product_Des';
 
 const { test, expect } = require('@playwright/test');
 
@@ -11,6 +12,7 @@ test.describe("Products Tests", () => {
     let loginpage;
     let productpage;
     let cartpage;
+    let prod_des;
 
     test.beforeEach(async ({ page }) => {
 
@@ -18,6 +20,7 @@ test.describe("Products Tests", () => {
         loginpage = new LoginPage(page);
         productpage = new ProductsPage(page);
         cartpage = new Cart(page);
+        prod_des=new Product_Des(page);
         await page.goto(basepage.url);
         await loginpage.login("standard_user", "tta_secret");
         await expect(page).toHaveURL(/inventory/);
@@ -50,10 +53,10 @@ test.describe("Products Tests", () => {
     test("verify product details page", async ({ page }) => {
         await productpage.name.click();
         await expect(page).toHaveURL(/tta-junior-tester-onesie/);
-        await expect(page.getByText('Product Details')).toBeVisible();
-        await page.getByRole("button", { name: "Add to cart" }).click();
-        await expect(page.getByRole("button", { name: "Remove" })).toHaveText("Remove");
-        await page.getByRole("button", { name: "Back" }).click();
+        await expect(prod_des.title).toBeVisible();
+        await prod_des.addtocart_btn.click();
+        await expect(prod_des.remove_btn).toHaveText("Remove");
+        await prod_des.back.click();
         await expect(page).toHaveURL(/inventory/);
 
     });
