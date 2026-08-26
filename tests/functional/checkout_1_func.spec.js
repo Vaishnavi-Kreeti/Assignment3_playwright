@@ -5,7 +5,7 @@ import { Cart } from '../../pages/Cart';
 const { test, expect } = require('@playwright/test');
 
 
-test.describe("Checkout_1 UI Tests", () => {
+test.describe("Checkout_1 Func Tests", () => {
     let basepage;
     let loginpage;
     let check_1;
