@@ -7,6 +7,8 @@ class LoginPage {
         this.password = page.getByPlaceholder("Password")
         this.button = page.locator("#login-button")
         this.loginError = page.locator("#login-error")
+        this.title=page.locator(".tta-brand-title")
+        this.card=page.locator(".login-card")
     
     }
      async login(username, password) {

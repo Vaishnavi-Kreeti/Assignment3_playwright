@@ -9,12 +9,12 @@ test("verify product sorting dropdown", async ({ page }) => {
 
     const loginpage=new LoginPage(page);
     const basepage=new BasePage(page)
+    const productspage=new ProductsPage(page);
     await page.goto(basepage.url);
     await loginpage.login("standard_user", "tta_secret")
-    const dropdown =await page.getByRole('combobox', { name: 'Sort products' })
-
-    await expect(dropdown).toBeVisible()
-    await expect(dropdown).toBeEnabled()
+  
+    await expect(productspage.dropdown).toBeVisible()
+    await expect(productspage.dropdown).toBeEnabled()
     const sort_options = [
   { option: "Price (low to high)", value: "lohi" },
   { option: "Price (high to low)", value: "hilo" },
@@ -22,8 +22,8 @@ test("verify product sorting dropdown", async ({ page }) => {
   { option: "Name (Z to A)", value: "za" }
 ];
     // Select option
-     for (const item of sort_options) {
-    await dropdown.selectOption({ label: item.option });
-    await expect(dropdown).toHaveValue(item.value);
+    for (const item of sort_options) {
+    await productspage.dropdown.selectOption({ label: item.option });
+    await expect(productspage.dropdown).toHaveValue(item.value);
   }
 })

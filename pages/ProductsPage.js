@@ -8,6 +8,8 @@ class ProductsPage {
         this.img=page.getByRole('link').filter({ hasText: 'test.all()' })
         this.price=page.getByRole('link').filter({ hasText: 'test.all()' })
         this.addtocart_button=page.getByRole('button',{name:'Add to cart'}).first()
+        this.dropdown=page.getByRole('combobox', { name: 'Sort products' })
+        this.remove_btn=page.getByRole("button", { name: "Remove" })
     }
      
 

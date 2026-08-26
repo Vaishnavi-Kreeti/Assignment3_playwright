@@ -5,44 +5,57 @@ import { Cart } from '../../pages/Cart';
 import { Hamburger } from '../../pages/Hamburger';
 const {test,expect}=require('@playwright/test')
 
+test.describe("Hamburger Menu Tests", () => {
 
-test("hamburger",async function ({page}){
-    const basepage=new BasePage(page);
-    const loginpage=new LoginPage(page);
-    const hamburger=new Hamburger(page);
-    const cart=new Cart(page);
+    let basepage;
+    let loginpage;
+    let hamburger;
+    let cart;
 
-    await page.goto(basepage.url)
-    await loginpage.login("standard_user", "tta_secret")
-    await expect(page).toHaveURL(/inventory/)
-    //opening hamburger flyout
-    await expect(hamburger.flyout).not.toHaveClass(/is-open/)
-    await basepage.hamburger.click()
-    await expect(hamburger.flyout).toHaveClass(/is-open/)
-   
-    
-    //ist option check
-    await hamburger.items.click()
-    await expect(hamburger.flyout).not.toHaveClass(/is-open/)
-    await expect(page).toHaveURL(/inventory/)
+    test.beforeEach(async ({ page }) => {
 
-    //2nd option check
-    await basepage.hamburger.click()
-    await hamburger.about.click()
-    await expect(page).toHaveURL(/thetestingacademy/)
+        basepage = new BasePage(page);
+        loginpage = new LoginPage(page);
+        hamburger = new Hamburger(page);
+        cart = new Cart(page);
 
-    //4th option check
-    await page.goBack()
-    await basepage.hamburger.click()
-    await hamburger.reset.click()
-    const c=await cart.remove_btn.count()
-    await expect(c==0).toBeTruthy()
-    await expect(basepage.cart_count).not.toBeVisible()
-    await expect(hamburger.flyout).not.toHaveClass(/is-open/)
+        await page.goto(basepage.url);
+        await loginpage.login("standard_user", "tta_secret");
+        await expect(page).toHaveURL(/inventory/);
+    });
 
-    //3rd option check
-    await basepage.hamburger.click()
-    await hamburger.logout.click()
-    await expect(page).not.toHaveURL(/inventory/)
-    await expect(page).toHaveTitle("TTACart - Login");
+    test("verify hamburger opens", async ({ page }) => {
+
+        await expect(hamburger.flyout).not.toHaveClass(/is-open/);
+        await basepage.hamburger.click();
+        await expect(hamburger.flyout).toHaveClass(/is-open/);
+    });
+
+    test("verify items option", async ({ page }) => {
+        await basepage.hamburger.click();
+        await hamburger.items.click();
+        await expect(page).toHaveURL(/inventory/);
+    });
+
+    test("verify about option", async ({ page }) => {
+        await basepage.hamburger.click();
+        await hamburger.about.click();
+        await expect(page).toHaveURL(/thetestingacademy/);
+    });
+
+    test("verify reset option", async ({ page }) => {
+        await basepage.hamburger.click();
+        await hamburger.reset.click();
+        const c = await cart.remove_btn.count();
+        await expect(c).toBe(0);
+        await expect(basepage.cart_count).not.toBeVisible();
+    });
+
+    test("verify logout option", async ({ page }) => {
+        await basepage.hamburger.click();
+        await hamburger.logout.click();
+        await expect(page).not.toHaveURL(/inventory/);
+        await expect(page).toHaveTitle("TTACart - Login");
+    });
+
 });
