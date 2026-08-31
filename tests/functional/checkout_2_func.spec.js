@@ -6,7 +6,7 @@ import { Checkout_2 } from '../../pages/Checkout_2';
 const { test, expect } = require('@playwright/test');
 
 
-test.describe("Checkout_1 Func Tests", () => {
+test.describe("Checkout_2 Func Tests", () => {
     let basepage;
     let loginpage;
     let check_1;

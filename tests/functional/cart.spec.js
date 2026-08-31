@@ -50,7 +50,6 @@ test.describe("Cart Tests", () => {
     test("verify cancel checkout", async ({ page }) => {
         await cart.checkout_btn.click();
         await expect(page).toHaveURL(/checkout-step-one/);
-        //const cancelButton = page.getByRole("link",{ name: "Cancel" });
         await expect(check_1.cancel_btn).toBeEnabled();
         await check_1.cancel_btn.click();
         await expect(page).toHaveURL(/cart/);

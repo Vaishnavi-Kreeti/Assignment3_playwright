@@ -7,7 +7,7 @@ import { Checkout_comp } from '../../pages/Checkout_comp';
 const { test, expect } = require('@playwright/test');
 
 
-test.describe("Checkout_2 UI Tests", () => {
+test.describe("Checkout_comp func Tests", () => {
     let basepage;
     let loginpage;
     let check_1;
