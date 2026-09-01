@@ -14,9 +14,7 @@ test.describe("Hamburger UI Tests", () => {
         loginpage = new LoginPage(page);
         hamburger = new Hamburger(page);
 
-        await page.goto(basepage.url);
-        await loginpage.login("standard_user", "tta_secret");
-        await expect(page).toHaveURL(/inventory/);
+        await page.goto(basepage.url+"inventory")
         // Open hamburger menu before every test
         await basepage.hamburger.click();
         await expect(hamburger.flyout).toBeVisible();

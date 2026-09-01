@@ -21,9 +21,7 @@ test.describe("Products Tests", () => {
         productpage = new ProductsPage(page);
         cartpage = new Cart(page);
         prod_des=new Product_Des(page);
-        await page.goto(basepage.url);
-        await loginpage.login("standard_user", "tta_secret");
-        await expect(page).toHaveURL(/inventory/);
+        await page.goto(basepage.url+"inventory")
     });
 
     test("products ui", async ({ page }) => {
@@ -38,8 +36,8 @@ test.describe("Products Tests", () => {
         await expect(productpage.name).toBeVisible();
         await expect(productpage.name).toBeEnabled();
         await expect(productpage.price).toBeVisible();
-        await expect(productpage.addtocart_button).toBeVisible();
-        await expect(productpage.addtocart_button).toBeEnabled();
+        await expect(productpage.addtocart_button.first()).toBeVisible();
+        await expect(productpage.addtocart_button.first()).toBeEnabled();
     });
 
     test("verify cart navigation", async ({ page }) => {
@@ -63,7 +61,7 @@ test.describe("Products Tests", () => {
     test("verify cart item count", async ({ page }) => {
     const randnum = Math.floor(Math.random() * 5) + 1;
     for (let i = 1; i <= randnum; i++) {
-            await productpage.addtocart_button.click();
+            await productpage.addtocart_button.first().click();
         }
         const count = await productpage.remove_btn.count();
         await expect(basepage.cart_count).toHaveText(String(count));

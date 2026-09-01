@@ -1,4 +1,5 @@
-import { LoginPage } from '../../pages/LoginPage';
+//import { LoginPage } from '../../pages/LoginPage';
+
 import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 import { Cart } from '../../pages/Cart';
@@ -6,21 +7,23 @@ import { Checkout_1 } from '../../pages/Checkout_1';
 const { test, expect } = require('@playwright/test');
 
 test.describe("Cart Tests", () => {
-    let loginpage;
+    //let loginpage;
     let basepage;
     let productpage;
     let cart;
     let check_1;
     test.beforeEach(async ({ page }) => {
-        loginpage = new LoginPage(page);
+        //loginpage = new LoginPage(page);
         basepage = new BasePage(page);
         productpage = new ProductsPage(page);
         check_1=new Checkout_1(page);
         cart = new Cart(page);
-        await page.goto(basepage.url);
-        await loginpage.login("standard_user", "tta_secret");
-        await expect(page).toHaveURL(/inventory/);
+         await page.goto(basepage.url+"inventory")
+
+    // Check that the product page is loaded
+    await expect(productpage.addtocart_button.first()).toBeVisible();
         // Add products to cart
+        
         await productpage.addtocart_button.first().click();
         await productpage.addtocart_button.first().click();
         // Navigate to cart
