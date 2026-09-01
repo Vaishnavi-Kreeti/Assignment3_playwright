@@ -1,5 +1,4 @@
 const products = require("../../pages/Products")
-import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 
@@ -7,11 +6,9 @@ const {test,expect}=require('@playwright/test')
 
 test("verify product sorting dropdown", async ({ page }) => {
 
-    const loginpage=new LoginPage(page);
     const basepage=new BasePage(page)
     const productspage=new ProductsPage(page);
-    await page.goto(basepage.url);
-    await loginpage.login("standard_user", "tta_secret")
+   await page.goto(basepage.url+"inventory")
   
     await expect(productspage.dropdown).toBeVisible()
     await expect(productspage.dropdown).toBeEnabled()

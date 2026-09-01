@@ -1,4 +1,3 @@
-import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { ProductsPage } from '../../pages/ProductsPage';
 import { Cart } from '../../pages/Cart';
@@ -9,7 +8,6 @@ const { test, expect } = require('@playwright/test');
 
 test.describe("Products Tests", () => {
     let basepage;
-    let loginpage;
     let productpage;
     let cartpage;
     let prod_des;
@@ -17,7 +15,6 @@ test.describe("Products Tests", () => {
     test.beforeEach(async ({ page }) => {
 
         basepage = new BasePage(page);
-        loginpage = new LoginPage(page);
         productpage = new ProductsPage(page);
         cartpage = new Cart(page);
         prod_des=new Product_Des(page);
@@ -27,7 +24,6 @@ test.describe("Products Tests", () => {
     test("products ui", async ({ page }) => {
         await expect(page).toHaveTitle("TTACart - Products");
         await expect(productpage.title).toHaveText("Products");
-        // Product card
     });
 
     test("product card",async({page})=>{

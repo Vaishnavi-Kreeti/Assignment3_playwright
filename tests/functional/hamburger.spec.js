@@ -1,6 +1,4 @@
-import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
-import { ProductsPage } from '../../pages/ProductsPage';
 import { Cart } from '../../pages/Cart';
 import { Hamburger } from '../../pages/Hamburger';
 const {test,expect}=require('@playwright/test')
@@ -8,20 +6,16 @@ const {test,expect}=require('@playwright/test')
 test.describe("Hamburger Menu Tests", () => {
 
     let basepage;
-    let loginpage;
     let hamburger;
     let cart;
 
     test.beforeEach(async ({ page }) => {
 
         basepage = new BasePage(page);
-        loginpage = new LoginPage(page);
         hamburger = new Hamburger(page);
         cart = new Cart(page);
 
-        await page.goto(basepage.url);
-        await loginpage.login("standard_user", "tta_secret");
-        await expect(page).toHaveURL(/inventory/);
+        await page.goto(basepage.url+"inventory")
          await expect(hamburger.flyout).not.toHaveClass(/is-open/);
         await basepage.hamburger.click();
         await expect(hamburger.flyout).toHaveClass(/is-open/);

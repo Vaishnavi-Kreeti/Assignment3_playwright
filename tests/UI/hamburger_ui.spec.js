@@ -1,4 +1,3 @@
-import { LoginPage } from '../../pages/LoginPage';
 import { BasePage } from '../../pages/BasePage';
 import { Hamburger } from '../../pages/Hamburger';
 const { test, expect } = require('@playwright/test');
@@ -6,12 +5,10 @@ const { test, expect } = require('@playwright/test');
 test.describe("Hamburger UI Tests", () => {
 
     let basepage;
-    let loginpage;
     let hamburger;
     
     test.beforeEach(async ({ page }) => {
         basepage = new BasePage(page);
-        loginpage = new LoginPage(page);
         hamburger = new Hamburger(page);
 
         await page.goto(basepage.url+"inventory")
